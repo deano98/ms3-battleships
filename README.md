@@ -1,45 +1,35 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Milestone Project 3 - Battleships Game
 
-Welcome USER_NAME,
+This python based project will be a simple version of the popular battleships boardgame.
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use.
+The game will be for 2 players. Each player will have to place 5 battleships on their own 5x5 board, the position of each players ships are stored. The players will then take it in turns to guess the locations of each ship, a correct guess will "sink" said ship. Once a player has sunk all of the opposing ships, they win.
 
-## Gitpod Reminders
+As this is primarily a back end project, it will be a simple game in terms of the UX. The board and ships will be stored in the memory rather than displayed, and the only user input will be the player's names and ship locations.
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+# UX
 
-`python3 -m http.server`
+### User Stories
 
-A blue button should appear to click: *Make Public*,
+* As a user, I want the game to be intuative and easy to use
+* As a user, I'd like to be able to see the rules of the game
+* As a user, I want the game to be interactive and engaging 
 
-Another blue button should appear to click: *Open Browser*.
+# Flowchart
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+[Flowchart]()
 
-A blue button should appear to click: *Make Public*,
+# Features
 
-Another blue button should appear to click: *Open Browser*.
+* The game will first ask each player their name, which will be stored in variables.
+* Once both player's names have been entered, the 5x5 boards will be created and stored in variables.
+* Each player will then take it in turns to select 5 coordinates to place their ships on their 5x5 boards. The x axis will be labelled A-E and the y axis 1-5, so the required format for the coordinates will be something like A5. If the correct format is not used this will trigger an error and the player will have to re-enter in the correct format.
+* When a player enters a correct coordinate, this will modify the board variables to store the location of each ship.
+* Once each player has placed 5 ships, the game will begin. Once again each player will have to input valid coordinates to guess the locations of the opposing ships.
+* When a coordinate is entered, the board variables are checked to see if the attempt was successful, if it was the variable is modified to store the hit.
+* Any successful hits will trigger a check to see if any ships are still remaining, if there are the game will continue. If not, the game will end and the player will be declared the winner.
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+# Technologies Used
 
-## Updates Since The Instructional Video
+* Python
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
-
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
-
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
-
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
---------
-
-Happy coding!
+# Testing
