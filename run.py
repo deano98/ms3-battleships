@@ -73,15 +73,13 @@ def validate_coordinates(values):
 def process_coordinates(coordinates):
     """
     Processes the coordinates given and adds them to the board
-    """
-    """
+    """    
     i = 0
     while i < 5:
-        """
-    x = int(ord(coordinates[0][0])) - 65
-    y = int(coordinates[0][1]) - 1
-    print(x, y)
-
+        x = int(ord(coordinates[i][0])) - 65
+        y = int(coordinates[i][1]) - 1
+        print(x, y)
+        i += 1
 
 
 def main():
