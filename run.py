@@ -34,9 +34,11 @@ def player_one_ships():
     while True:
         i = 1
         while i < 6:
+            """
             print(f"Please enter the coordinates for ship number {i}")
             print("Coordinates should be A-E followed by 1-5")
             print("For example C2")
+            """
 
             player_one_coordinates = input("Enter your coordinates here:\n")
 
@@ -44,6 +46,7 @@ def player_one_ships():
                 print("Coordinates are Valid!")
                 coordinates.append(player_one_coordinates)
                 i += 1
+        break
 
     return coordinates
 
@@ -67,6 +70,20 @@ def validate_coordinates(values):
     return True
 
 
+def process_coordinates(coordinates):
+    """
+    Processes the coordinates given and adds them to the board
+    """
+    """
+    i = 0
+    while i < 5:
+        """
+    x = int(ord(coordinates[0][0])) - 65
+    y = int(coordinates[0][1]) - 1
+    print(x, y)
+
+
+
 def main():
     """
     Run all program functions
@@ -77,6 +94,7 @@ def main():
     pprint(player_two_board)
     p1_coordinates = player_one_ships()
     print(p1_coordinates)
+    new_board = process_coordinates(p1_coordinates)
 
 
 main()
