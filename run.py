@@ -37,7 +37,7 @@ def player_ships(name):
         print("Coordinates should be A-E followed by 1-5")
         print("For example C2")
         while i < 6:
-            player_coordinates = input(f"{name} Please enter the coordinates for ship number {i}\n")
+            player_coordinates = input(f"{name}, please enter the coordinates for ship number {i}\n")
 
             if validate_coordinates(player_coordinates):
                 print("Coordinates are Valid!")
@@ -54,11 +54,11 @@ def validate_coordinates(coordinates):
     Raises ValueError if they aren't valid
     """
     try:
-        if len(values) != 2:
+        if len(coordinates) != 2:
             raise ValueError("Please type 2 values for your coordinates")
-        elif values[0] not in "ABCDEabcde":
+        elif coordinates[0] not in "ABCDEabcde":
             raise ValueError("Invalid coordinates")
-        elif values[1] not in "12345":
+        elif coordinates[1] not in "12345":
             raise ValueError("Invalid coordinates")
     except ValueError as e:
         print(f"Error: {e}, please try again.\n")
@@ -86,19 +86,30 @@ def attack_coordinates(player_one, player_two):
     print("Coordinates should be A-E followed by 1-5")
     print("For example C2")
     i = 1
-    if i % 2 == 0:
-        name = player_two
-        board = player_two_board
-    else:
-        name = player_one
-        board = player_one_board
     while True:
-        player_attack = input(f"{name} Please enter the coordinates for the opposing square to fire at:\n")
+        if i % 2 == 0:
+            name = player_two
+            board = player_one_board
+        else:
+            name = player_one
+            board = player_two_board
+        player_attack = input(f"{name}, please enter the coordinates for the opposing square to fire at:\n")
 
         if validate_coordinates(player_attack):
             print("Coordinates are Valid!")
-            process_coordinates(player_attack, board)
-            break        
+            process_attack_coords(player_attack, board)
+            i += 1            
+
+
+def process_attack_coords(coordinates, board):
+    """
+    Processes the coordinates given for each players attack and adds them to the board
+    """
+    x = int(ord(coordinates[0].upper())) - 65
+    y = int(coordinates[1]) - 1
+    board[x][y] = "X"
+    pprint(board)
+    return True
 
 
 def main():
@@ -117,7 +128,7 @@ def main():
     process_coordinates(p2_coordinates, player_two_board)
     print(f"{players[1]} board:")
     pprint(player_two_board)
-    attack_coordinates(players[0], player[1])
+    attack_coordinates(players[0], players[1])
 
 
 main()
