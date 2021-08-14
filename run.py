@@ -39,7 +39,9 @@ def player_ships(name):
         while i < 6:
             player_coordinates = input(f"{name}, please enter the coordinates for ship number {i}\n")
 
-            if validate_coordinates(player_coordinates):
+            if player_coordinates in coordinates:
+                print("You already have a ship placed here, enter another coordinate")
+            elif validate_coordinates(player_coordinates):
                 print("Coordinates are Valid!")
                 coordinates.append(player_coordinates)
                 i += 1
@@ -97,19 +99,29 @@ def attack_coordinates(player_one, player_two):
 
         if validate_coordinates(player_attack):
             print("Coordinates are Valid!")
-            process_attack_coords(player_attack, board)
+            process_attack_coords(player_attack, board, name)
             i += 1            
 
 
-def process_attack_coords(coordinates, board):
+def process_attack_coords(coordinates, board, name):
     """
     Processes the coordinates given for each players attack and adds them to the board
     """
     x = int(ord(coordinates[0].upper())) - 65
     y = int(coordinates[1]) - 1
-    board[x][y] = "X"
-    pprint(board)
-    return True
+    if board[x][y] == "X":
+        print("You have already attacked here, please enter another coordinate")
+        return False
+    elif board[x][y] == "S":
+        print(f"Boom! Well done {name}, you sunk an opposing ship!")
+        board[x][y] = "X"
+        pprint(board)
+        return True
+    else:
+        board[x][y] = "X"
+        print(f"Bad luck {name} you missed!")
+        pprint(board)
+        return True
 
 
 def main():
