@@ -29,27 +29,26 @@ def get_player_names():
 
 def player_ships(name):
     """
-    Get the ship coordinate input from player 1
+    Get the ship coordinate input from each player
     """
     coordinates = []
     while True:
         i = 1
-
         print("Coordinates should be A-E followed by 1-5")
         print("For example C2")
         while i < 6:
-            player_one_coordinates = input(f"{name} Please enter the coordinates for ship number {i}\n")
+            player_coordinates = input(f"{name} Please enter the coordinates for ship number {i}\n")
 
-            if validate_coordinates(player_one_coordinates):
+            if validate_coordinates(player_coordinates):
                 print("Coordinates are Valid!")
-                coordinates.append(player_one_coordinates)
+                coordinates.append(player_coordinates)
                 i += 1
         break
 
     return coordinates
 
 
-def validate_coordinates(values):
+def validate_coordinates(coordinates):
     """
     Checks if the coordinates entered are valid
     Raises ValueError if they aren't valid
@@ -80,6 +79,28 @@ def process_coordinates(coordinates, board):
         i += 1
 
 
+def attack_coordinates(player_one, player_two):
+    """
+    Get the attack coordinates for each player
+    """
+    print("Coordinates should be A-E followed by 1-5")
+    print("For example C2")
+    i = 1
+    if i % 2 == 0:
+        name = player_two
+        board = player_two_board
+    else:
+        name = player_one
+        board = player_one_board
+    while True:
+        player_attack = input(f"{name} Please enter the coordinates for the opposing square to fire at:\n")
+
+        if validate_coordinates(player_attack):
+            print("Coordinates are Valid!")
+            process_coordinates(player_attack, board)
+            break        
+
+
 def main():
     """
     Run all program functions
@@ -96,6 +117,7 @@ def main():
     process_coordinates(p2_coordinates, player_two_board)
     print(f"{players[1]} board:")
     pprint(player_two_board)
+    attack_coordinates(players[0], player[1])
 
 
 main()
