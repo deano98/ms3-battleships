@@ -97,11 +97,11 @@ def attack_coordinates(player_one, player_two):
             name = player_one
             board = player_two_board
         player_attack = input(f"{name}, please enter the coordinates for the opposing square to fire at:\n")
-        if validate_coordinates(player_attack):
-            print("Coordinates are Valid!")
-            process_attack_coords(player_attack, board, name)
-            i += 1
-            check_win(board, name)
+        if validate_coordinates(player_attack):       
+            if process_attack_coords(player_attack, board, name):
+                print("Coordinates are Valid!")
+                i += 1
+                check_win(board, name)
 
 
 def process_attack_coords(coordinates, board, name):
@@ -109,6 +109,7 @@ def process_attack_coords(coordinates, board, name):
     Processes the coordinates given for each players attack and adds them to the board
     """
     print(board)
+    print(name)
     x = int(ord(coordinates[0].upper())) - 65
     y = int(coordinates[1]) - 1
     if board[x][y] == "X":
@@ -141,7 +142,7 @@ def check_win(board, name):
     if n > 0:
         return True
     else:
-        print("Congratulations {name}, you have sunk all of the opposing battleships. You win!")
+        print(f"Congratulations {name}, you have sunk all of the opposing battleships. You win!")
 
 
 def main():
