@@ -141,11 +141,33 @@ def check_win(board, name):
     if n > 0:
         return True
     else:
-        print(f"Congratulations {name}, you have sunk all of the opposing battleships. You win!")
-        play_again = input("Would you like to play again? y/n:\n")
+        print(f"Congratulations {name}, you have sunk all of the opposing battleships. You win!")        
 
-        if play_again == "y" or "Y":
-            main()
+        while True:
+            play_again = input("Would you like to play again? y/n:\n")
+            if validate_play_again(play_again):
+                if play_again == "y" or play_again == "Y":
+                    main()
+                else:
+                    print("Thanks for playing!")
+                    exit()
+
+
+def validate_play_again(input):
+    """
+    Checks if the coordinates entered are valid
+    Raises ValueError if they aren't valid
+    """
+    try:
+        if len(input) != 1:
+            raise ValueError("Please type either y/n")
+        elif input not in "ynYN":
+            raise ValueError("Please type either y/n")
+    except ValueError as e:
+        print(f"Error: {e}\n")
+        return False
+
+    return True
 
 
 def main():
