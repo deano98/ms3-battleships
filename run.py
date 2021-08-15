@@ -1,20 +1,19 @@
 from pprint import pprint
 
-player_one_board = [
-    [' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' '],
-]
 
-player_two_board = [
-    [' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' '],
-]
+def create_boards():
+    """
+    Creates the boards for each player
+    """
+    board = [
+        [' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' '],
+    ]
+
+    return board
 
 
 def get_player_names():
@@ -81,7 +80,7 @@ def process_coordinates(coordinates, board):
         i += 1
 
 
-def attack_coordinates(player_one, player_two):
+def attack_coordinates(player_one, player_two, p1_board, p2_board):
     """
     Get the attack coordinates for each player
     """
@@ -92,10 +91,10 @@ def attack_coordinates(player_one, player_two):
     while True:
         if i % 2 == 0:
             name = player_two
-            board = player_one_board
+            board = p1_board
         else:
             name = player_one
-            board = player_two_board
+            board = p2_board
         player_attack = input(f"{name}, please enter the coordinates for the opposing square to fire at:\n")
         if validate_coordinates(player_attack):       
             if process_attack_coords(player_attack, board, name):
@@ -143,25 +142,31 @@ def check_win(board, name):
         return True
     else:
         print(f"Congratulations {name}, you have sunk all of the opposing battleships. You win!")
+        play_again = input("Would you like to play again? y/n:\n")
+
+        if play_again == "y" or "Y":
+            main()
 
 
 def main():
     """
     Run all program functions
     """
+    p1_board = create_boards()
+    p2_board = create_boards()
     players = get_player_names()
     print(f"Player One: {players[0]} vs Player 2: {players[1]}")
     p1_coordinates = player_ships(players[0])
     p2_coordinates = player_ships(players[1])
     print(p1_coordinates)
     print(p2_coordinates)
-    process_coordinates(p1_coordinates, player_one_board)
+    process_coordinates(p1_coordinates, p1_board)
     print(f"{players[0]} board:")
-    pprint(player_one_board)
-    process_coordinates(p2_coordinates, player_two_board)
+    pprint(p1_board)
+    process_coordinates(p2_coordinates, p2_board)
     print(f"{players[1]} board:")
-    pprint(player_two_board)
-    attack_coordinates(players[0], players[1])
+    pprint(p2_board)
+    attack_coordinates(players[0], players[1], p1_board, p2_board)
 
 
 main()
