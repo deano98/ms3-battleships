@@ -87,8 +87,6 @@ def attack_coordinates(player_one, player_two, p1_board, p2_board):
     """
     Get the attack coordinate inputs for each player
     """
-    print("Coordinates should be A-E followed by 1-5")
-    print("For example C2")
     i = 1
     while True:
         if i % 2 == 0:
@@ -187,8 +185,6 @@ def main():
     print(f"Player One: {players[0]} vs Player 2: {players[1]}")
     p1_coordinates = player_ships(players[0])
     p2_coordinates = player_ships(players[1])
-    print(p1_coordinates)
-    print(p2_coordinates)
     process_coordinates(p1_coordinates, p1_board)
     print(f"{players[0]} board:")
     pprint(p1_board)
