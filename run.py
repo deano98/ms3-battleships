@@ -18,28 +18,31 @@ def create_boards():
 
 def get_player_names():
     """
-    Get the names from both players
+    Get the name inputs from both players
     """
-    player_one = input("Player 1 Name:\n")
-    player_two = input("Player 2 Name:\n")
+    player_one = input("Player 1: please enter your name:\n")
+    player_two = input("Player 2: please enter your name:\n")
 
     return player_one, player_two
 
 
 def player_ships(name):
     """
-    Get the ship coordinate input from each player
+    Get the ship coordinate inputs from each player
     """
     coordinates = []
     while True:
         i = 1
-        print("Coordinates should be A-E followed by 1-5")
-        print("For example C2")
+        print("Please type your coordinates in the format: A1")
+        print("The first value should be A-E")
+        print("The second value should be 1-5")
         while i < 6:
-            player_coordinates = input(f"{name}, please enter the coordinates for ship number {i}\n")
-
+            player_coordinates = input(
+                f"{name}, please enter the coordinates for ship number {i}\n"
+                )
             if player_coordinates in coordinates:
-                print("You already have a ship placed here, enter another coordinate")
+                print("You already have a ship placed here")
+                print("Please enter another coordinate")
             elif validate_coordinates(player_coordinates):
                 print("Coordinates are Valid!")
                 coordinates.append(player_coordinates)
@@ -56,13 +59,13 @@ def validate_coordinates(coordinates):
     """
     try:
         if len(coordinates) != 2:
-            raise ValueError("Please type 2 values for your coordinates")
+            raise ValueError("Please only enter 2 coordinate values")
         elif coordinates[0] not in "ABCDEabcde":
-            raise ValueError("Invalid coordinates")
+            raise ValueError("First value should be a letter between A-D")
         elif coordinates[1] not in "12345":
-            raise ValueError("Invalid coordinates")
+            raise ValueError("Second value should be a number between 1-5")
     except ValueError as e:
-        print(f"Error: {e}, please try again.\n")
+        print(f"Invalid coordinates: {e}, please try again.\n")
         return False
 
     return True
@@ -70,8 +73,8 @@ def validate_coordinates(coordinates):
 
 def process_coordinates(coordinates, board):
     """
-    Processes the coordinates given and adds them to the board
-    """    
+    Processes the coordinates given and adds them to the boards
+    """
     i = 0
     while i < 5:
         x = int(ord(coordinates[i][0].upper())) - 65
@@ -82,12 +85,11 @@ def process_coordinates(coordinates, board):
 
 def attack_coordinates(player_one, player_two, p1_board, p2_board):
     """
-    Get the attack coordinates for each player
+    Get the attack coordinate inputs for each player
     """
     print("Coordinates should be A-E followed by 1-5")
     print("For example C2")
     i = 1
-    
     while True:
         if i % 2 == 0:
             name = player_two
@@ -95,24 +97,26 @@ def attack_coordinates(player_one, player_two, p1_board, p2_board):
         else:
             name = player_one
             board = p2_board
-        player_attack = input(f"{name}, please enter the coordinates for the opposing square to fire at:\n")
-        if validate_coordinates(player_attack):       
+        player_attack = input(
+            f"{name}, please enter the coordinates to fire at:\n"
+            )
+        if validate_coordinates(player_attack):
             if process_attack_coords(player_attack, board, name):
-                print("Coordinates are Valid!")
                 i += 1
                 check_win(board, name)
 
 
 def process_attack_coords(coordinates, board, name):
     """
-    Processes the coordinates given for each players attack and adds them to the board
+    Processes the coordinates given for each players attack
+    Adds the coorindates to the relevant board
     """
-    print(board)
-    print(name)
     x = int(ord(coordinates[0].upper())) - 65
     y = int(coordinates[1]) - 1
     if board[x][y] == "X":
-        print("You have already attacked here, please enter another coordinate")
+        print(
+            "You have already attacked here, please enter another coordinate"
+            )
         return False
     elif board[x][y] == "S":
         print(f"Boom! Well done {name}, you sunk an opposing ship!")
@@ -129,6 +133,8 @@ def process_attack_coords(coordinates, board, name):
 def check_win(board, name):
     """
     Checks the board to see if there are any ships remaining
+    If no ships remain the winner is declared and the game ends
+    Player is then given the choice to play again or not
     """
     i = 0
     n = 0
@@ -141,8 +147,9 @@ def check_win(board, name):
     if n > 0:
         return True
     else:
-        print(f"Congratulations {name}, you have sunk all of the opposing battleships. You win!")        
-
+        print(f"Congratulations {name}!")
+        print("You have sunk all of the opposing battleships!")
+        print("You Win!")
         while True:
             play_again = input("Would you like to play again? y/n:\n")
             if validate_play_again(play_again):
@@ -155,8 +162,8 @@ def check_win(board, name):
 
 def validate_play_again(input):
     """
-    Checks if the coordinates entered are valid
-    Raises ValueError if they aren't valid
+    Checks if the play again input is valid
+    Raises ValueError if it isn't valid
     """
     try:
         if len(input) != 1:
